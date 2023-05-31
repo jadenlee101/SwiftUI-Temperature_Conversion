@@ -11,8 +11,12 @@ import SwiftUI
 struct ContentView: View {
     @State private var enteredValue: Double = 0
     @State private var selectedTemp = "C"
-    @State private var units = ["C", "F", "K"]
+    @State private var toSelct = "C"
+    private var units = ["C", "F", "K"]
+    
+    private var toUnit = ["C", "F", "K"]
     private var converted : Double {
+    
         return enteredValue
     }
     
@@ -25,8 +29,8 @@ struct ContentView: View {
                         TextField("Enter the temperature",value: $enteredValue, format: .number)
                     }
                     Picker ("Select Unit", selection: $selectedTemp){
-                        ForEach(units, id: \.self) {
-                            Text($0)
+                        ForEach(units, id: \.self) { value in
+                            Text(value)
                         }
                         
                     }.pickerStyle(.segmented)
@@ -35,7 +39,18 @@ struct ContentView: View {
                 }
                 
                 Section {
-                    Text("The temperature is: \(converted) \(selectedTemp)")
+                    Picker ("Select Unit", selection: $toSelct){
+                        ForEach(units, id: \.self) { value in
+                            Text(value)
+                        }
+                        
+                    }.pickerStyle(.segmented)
+                } header: {
+                    Text("Select which unit to convert to")
+                }
+                
+                Section {
+                    Text("The temperature is: \(converted) \(toSelct)")
                     
                 }
                 
