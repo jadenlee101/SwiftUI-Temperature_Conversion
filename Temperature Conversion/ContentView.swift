@@ -16,8 +16,18 @@ struct ContentView: View {
     
     private var toUnit = ["C", "F", "K"]
     private var converted : Double {
-    
-        return enteredValue
+        var finalValue : Double = 1
+        if selectedTemp == "C" {
+            if toSelct  == "C" {
+                finalValue = 2
+            }
+        } else if selectedTemp == "F" {
+            if toSelct == "C" {
+                finalValue = 100
+            }
+        }
+        
+        return finalValue
     }
     
     var body: some View {
