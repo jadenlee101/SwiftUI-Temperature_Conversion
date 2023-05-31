@@ -7,15 +7,44 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
+    @State private var enteredValue: Double = 0
+    @State private var selectedTemp = "C"
+    @State private var units = ["C", "F", "K"]
+    private var converted : Double {
+        return enteredValue
+    }
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView{
+            Form{
+                Section {
+                    HStack{
+                        Text("Enter the value: ")
+                        TextField("Enter the temperature",value: $enteredValue, format: .number)
+                    }
+                    Picker ("Select Unit", selection: $selectedTemp){
+                        ForEach(units, id: \.self) {
+                            Text($0)
+                        }
+                        
+                    }.pickerStyle(.segmented)
+                } header: {
+                    Text("Enter the value")
+                }
+                
+                Section {
+                    Text("The temperature is: \(converted) \(selectedTemp)")
+                    
+                }
+                
+            }
+            .navigationTitle("Convert temperature")
+            
         }
-        .padding()
+        
+        
     }
 }
 
